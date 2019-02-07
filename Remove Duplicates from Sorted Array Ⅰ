@@ -1,0 +1,64 @@
+/*
+	Name: Remove Duplicates from Sorted Array Ⅰ 
+	Copyright: WiskersYdh
+	Author: WiskersYdh
+	Date: 06/02/19 10:43
+	Description: Griven a sorted array, remove the duplicates in place such that each
+	             element appear only once and return the new length.
+	             Do not allocate extra space for another array, you must do this in place
+				 with constant memory.
+				 For example, Given input array A = [1,1,2],
+				 Your function should return length = 2,ans A is now [1,2].
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+/*时间复杂度O(n),空间复杂度O(1)*/
+int removeDuplicates01(vector<int>& nums) {
+	if(nums.empty()) return 0;
+	int index=0;
+	for(int i=0; i<nums.size(); i++) {
+		if(nums[index]!=nums[i]) {
+			nums[++index]=nums[i];
+		}
+	}
+	return index;
+}
+
+/*使用STL,时间复杂度O(n),空间复杂度O(1)*/
+int removeDuplicates02(vector<int>& nums) {
+	return distance(nums.begin(),unique(nums.begin(),nums.end())) - 1;
+}
+
+/*使用STL,时间复杂度O(n),空间复杂度O(1)*/
+int removeDuplicates03(vector<int>& nums){
+	return distance(nums.begin(),removeDuplicates(nums.begin(),nums.end(),nums.begin());
+}
+
+template<typename InIt,typename OutIt>
+OutIt removeDuplicates(InIt first,InIt last,OutIt output){
+	while(first!=last){
+		*output++=*first;
+		first=upper_bound(first,last,*first);
+	}
+	return output;
+}
+
+int main(int argc, char** argv) {
+	int n;
+	cout<<"Give the length of array."<<endl;
+	cin>>n;
+	int a,LengthOfArray;
+	vector<int> A(n);
+	cout<<"Give a sorted array."<<endl;
+	for(int i=0; i<n; i++) {
+		cin>>a;
+		A.push_back(a);
+	}
+	LengthOfArray=removeDuplicates03(A);
+	cout<<"The length of array is "<<LengthOfArray<<endl;
+	return 0;
+}
